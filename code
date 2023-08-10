@@ -1,0 +1,72 @@
+import java.util.*;
+//creating class for creating the newNode
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int item){
+        data = item;
+        left = null;
+        right = null;
+    }
+}
+//class for implement the tree to find the top view elements from left to right
+class Tree {
+    Node root = null;
+    static ArrayList<Integer> topView(Node root)
+    {
+        // add your code
+        ArrayList<Integer> list = new ArrayList<>();
+        if (root != null){
+
+            if(printLeft(root.left)>0)
+                list.add(printLeft(root.left));
+            list.add(root.data);
+            if(printRight(root.right)>0)
+                list.add(printRight(root.right));
+        }
+        return list;
+}
+//main idea is to go to left if avalible else got to right
+    static int printLeft(Node node) {
+        if (node == null)
+            return 0;
+
+        printLeft(node.left);
+        return node.data;
+    }
+
+    static int printRight(Node node) {
+        if (node == null)
+            return 0;
+            printRight(node.right);
+            return node.data;
+
+    }
+
+
+
+}
+
+
+
+class Topoview
+{
+    //Function to return a list of nodes visible from the top view
+
+    //from left to right in Binary Tree.
+    public static void main(String[] args) {
+        Tree node = new Tree();
+        node.root = new Node(1);
+        node.root.left = new Node(2);
+        node.root.left.left = new Node(3);
+        node.root.right = new Node(4);
+        node.root.right.left = new Node(5);
+        node.root.left.right = new Node(6);
+        node.root.right.right = new Node(7);
+        ArrayList<Integer> ar = node.topView(node.root);
+        for (int i = 0; i < ar.size(); i++) {
+            System.out.println(ar.get(i));
+        }
+    }
+}
