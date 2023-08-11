@@ -1,0 +1,103 @@
+// very important
+// test and check for valid sudoko
+//code to check the suduko is valid or not
+import java.util.ArrayList;
+import java.util.List;
+
+public class valid_suduko {
+    public static void main(String[] args) {
+        List<String> x = new ArrayList<>();
+//setting up the board
+        char[][]  board = {
+ {'5','3','.','.','7','.','.','.','.'}
+,{'6','.','.','1','9','5','.','2','.'}
+,{'.','9','8','.','.','.','.','5','.'}
+,{'8','.','.','.','6','.','.','.','3'}
+,{'4','.','.','8','.','3','.','.','1'}
+,{'7','.','.','.','2','.','.','.','6'}
+,{'.','6','.','.','.','.','2','8','.'}
+,{'.','.','.','4','1','9','.','.','5'}
+,{'.','.','.','.','8','.','.','7','9'}};
+
+
+        System.out.println(isValidSudoku(board));
+
+    }
+
+    static boolean isValidSudoku(char[][] board) {
+
+
+
+        for (int i = 0; i < 9; i+=3) {
+            for (int j = 0; j < 9; j+=3) {
+                //checking 3*3
+                if(!(check(board,i,j)))
+                {
+                    return false;
+                }
+
+            }
+
+        }
+        //checking staright lines
+        if(!(checkstraight(board)))
+            return false;
+        return true;
+    }
+    static boolean checkstraight(char[][] board)
+    {
+        //making an array to check for the elements that are repeated or not
+        boolean[] ar = {true,true,true,true,true,true,true,true,true};
+        for (int i = 0; i < 9; i++) {
+            //making the new array for each row
+            boolean[] arr=ar.clone();
+            for (int j = 0; j < 9; j++) {
+                if(board[i][j]!='.'){
+                if(arr[(int)(board[i][j]-49)]==false)
+                    return false;
+                else
+                    arr[(int)(board[i][j]-49)]=false;
+                }
+                }
+
+            }
+        //same repeats with the columns
+        for (int i = 0; i < 9; i++) {
+            //making the column reset to have only true i.e,not started checking yet
+            boolean[] arr=ar.clone();
+            for (int j = 0; j < 9; j++) {
+                if(board[j][i]!='.'){
+                    if(arr[(int)(board[j][i]-49)]==false)
+                        return false;
+                    else
+                        arr[(int)(board[j][i]-49)]=false;
+                }
+            }
+
+        }
+
+        return true;
+    }
+    //this checks for the 3*3 blocks for 9 times
+    static boolean check(char[][] board,int s,int e)
+    {
+        boolean[] ar2 = {true,true,true,true,true,true,true,true,true} ;
+        boolean[] arr2=ar2.clone();
+        for (int i = s; i < (s+3); i++) {
+
+            for (int j = e; j < (e+3); j++) {
+                if(board[i][j]!='.'){
+                    if(arr2[(int)(board[i][j]-49)]==false)
+                        return false;
+                    else
+                        arr2[(int)(board[i][j]-49)]=false;
+                }
+            }
+
+        }
+        return true;
+    }
+
+
+
+}
